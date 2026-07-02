@@ -1,0 +1,56 @@
+programa
+{
+	inclua biblioteca Matematica --> m
+	inclua biblioteca Tipos --> t
+	inclua biblioteca Texto --> txt
+	inclua biblioteca Util --> u
+	
+	funcao inicio()
+	{
+		
+	inteiro vet[20], ind = 0	// declaração do vetor principal do programa
+	logico hit = falso	// um trigger inicializado com valor falso
+		// ATRIBUINDO VALORES AO VETOR SEM HAVER REPETIÇÃO DE VALORES	
+		// preciso controlar a progressão do loop, para isso o loop externo é um 'enquanto' onde através 
+		// do gatilho 'hit' poderei permitir ou não o contador a progredir.
+		enquanto(ind < u.numero_elementos(vet)) { // enquanto 'ind'(índice) menor que o número de elementos do vetor, faça...
+			vet[ind] = u.sorteia(0, 30) // vetor na posição 'ind' recebe = valor sorteado de 0 à 30
+			hit = falso // trigger 'hit' recebe = falso todo o começo para poder progradir caso não haja igualdade de valores de 'pos' para 'ind'
+			// 2° Loop tem um contador próprio 'pos'(posição) que inicia em 0 e vai até o valor de 'ind' comparando
+			// se ambos indices, 'pos' e 'ind' tem seus valores de vetor iguais, caso verdadeiro trigger 'hit' = verdadiro
+			// fazendo com que a posição seja atribuida novamente com outro valor sorteado.
+			para(inteiro pos = 0; pos < ind; pos++) { // iniciando do 0 e indo até o valor de 'ind'
+				se(vet[ind] == vet[pos]) { // comparando o valor que esta em 'ind' com o valor que está em 'pos'
+					hit = verdadeiro	// sendo a igualdade verdadeira o gatilho 'hit' é valorizado com = verdadeiro
+				}
+			}
+			se(nao(hit)) { // se nao(hit) -> ( hit == falso) prossiga...
+				ind++ // contador só progride com a condição do 'hit' sendo falso		
+			}
+		}
+		
+		// ORDENANDO OS VALLORES EM ORDEM CRESCENTE(COM VETOR SEM REPETIÇÃO DE VALORES)
+		inteiro aux = 0 // Variável auxiliar para técnica do 'swap'
+		// loop externo com contador 'p' principal para varrer o vetor de 0 até o (numero de elementos '-1) , "ou seja nunca chega ao ultimo valor"
+		para(inteiro p = 0; p < u.numero_elementos(vet)-1; p++) { 
+		 // loop interno com contador 's' secundário para varrer o vetor de p+1 até o número de elementos do vetor
+			para(inteiro s = p+1; s < u.numero_elementos(vet); s++) {
+			// se vetor na posição 'p' for maior que vetor na posição 's' -> 's' sempre começa do 0, ou seja atrás de 's' 
+			// comparando 'p' com a próxima posição [s = p+1] e caso verdadeiro faz a troca de valores com o 'SWAP'	
+				se(vet[p] > vet[s]) { 
+					aux = vet[s] // 'aux' recebe vet[s] , o valor mais à frente
+					vet[s] = vet[p] // vet[s] recebe o valor anterior a ele que está em vet[p]
+					vet[p] = aux // vet[p] (valor mais atrás) recebe 'aux' que era o valor menor de vet[s] -> SWAP CONCLUIDO <-	 
+				}
+				
+			}
+		}
+
+
+		// escreve o vetor na tela sem repetição de valores e em ordem crescente
+		para(inteiro pos = 0; pos < u.numero_elementos(vet); pos++) {
+			escreva(vet[pos]," ")
+		}
+		
+	}
+}
